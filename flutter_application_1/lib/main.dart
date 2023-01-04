@@ -72,23 +72,10 @@ class MyApp extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.circular(45),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 20,
-                        horizontal: 50,
-                      ),
-                      child: Text(
-                        'Transfer',
-                        style: TextStyle(
-                          fontSize: 22,
-                        ),
-                      ),
-                    ),
+                  const MyButton(
+                    text: 'Transfer',
+                    bgcolor: Color(0xFFF1B33B),
+                    textcolor: Colors.black,
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -112,6 +99,43 @@ class MyApp extends StatelessWidget {
                 ],
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//MyButton 커스텀 위젯
+class MyButton extends StatelessWidget {
+  final String text;
+  final Color bgcolor;
+  final Color textcolor;
+
+  const MyButton({
+    super.key,
+    required this.text,
+    required this.bgcolor,
+    required this.textcolor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: bgcolor,
+        borderRadius: BorderRadius.circular(45),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 50,
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 22,
+            color: textcolor,
           ),
         ),
       ),
