@@ -12,11 +12,11 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  int counter = 0;
+  List<int> numbers = [];
 
   void onClicked() {
     setState(() {
-      counter = counter + 1;
+      numbers.add(numbers.length);
     });
   }
 
@@ -37,7 +37,7 @@ class _AppState extends State<App> {
                 ),
               ),
               Text(
-                "$counter",
+                "$numbers",
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 30,

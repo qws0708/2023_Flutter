@@ -145,7 +145,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
                 Transform.translate(
-                  offset: const Offset(0, -20),
+                  offset: const Offset(0, -40),
                   child: const Card(
                     name: "Rupee",
                     code: "INR",
