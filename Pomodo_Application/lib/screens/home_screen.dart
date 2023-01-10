@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const twentyFiveMinutes = 1500;
+  static const twentyFiveMinutes = 1500; // timer 시간 설정
   int totalSeconds = twentyFiveMinutes;
   bool isRunning = false;
   int totalPomodoros = 0;
@@ -50,6 +50,14 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void onRestartPressed() {
+    timer.cancel();
+    setState(() {
+      totalSeconds = twentyFiveMinutes;
+      isRunning = false;
+    });
+  }
+
   String format(int seconds) {
     var duration = Duration(seconds: seconds);
     return duration.toString().split('.').first.substring(2, 7);
@@ -75,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Flexible(
-            flex: 2,
+            flex: 1,
             child: Center(
               child: IconButton(
                 iconSize: 120,
@@ -84,6 +92,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? Icons.pause_circle_outlined
                     : Icons.play_circle_outlined),
                 onPressed: isRunning ? onPausePressed : onStartPressed,
+              ),
+            ),
+          ),
+          Flexible(
+            flex: 1,
+            child: Center(
+              child: IconButton(
+                iconSize: 120,
+                color: Theme.of(context).cardColor,
+                icon: const Icon(Icons.restart_alt),
+                onPressed: onRestartPressed,
               ),
             ),
           ),
