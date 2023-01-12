@@ -31,7 +31,7 @@ class Webtoon extends StatelessWidget {
           Hero(
             tag: id,
             child: Container(
-              width: 250,
+              width: 200,
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
