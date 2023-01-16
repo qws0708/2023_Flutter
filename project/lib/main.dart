@@ -24,6 +24,7 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -36,6 +37,9 @@ class Main extends StatelessWidget {
             fontFamily: "NewFont",
           ),
         ),
+      ),
+      body: Center(
+        child: Image.asset("assets/images/flower.png"),
       ),
     );
   }
