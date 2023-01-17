@@ -19,6 +19,7 @@ class TabBarDemo extends StatelessWidget {
             centerTitle: true,
             bottom: const TabBar(
               tabs: [
+                // 커스텀 위젯으로 바꿔야 하는데 Icon을 변수로 만드는 법 알아야 함
                 Tab(
                     icon: Icon(
                   Icons.yard_outlined,
@@ -47,9 +48,10 @@ class TabBarDemo extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
+              // 페이지 이동 넣어야 함
               Image.asset("assets/images/flower.png"),
-              const Icon(Icons.directions_transit),
-              const Icon(Icons.directions_bike),
+              const Icon(Icons.checklist_rtl_outlined),
+              const Icon(Icons.pending_actions_sharp),
             ],
           ),
         ),
