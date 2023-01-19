@@ -1,57 +1,92 @@
 import 'package:flutter/material.dart';
+import 'package:project/survey.dart';
 
-void main() {
-  runApp(const TabBarDemo());
-}
+void main() => runApp(MaterialApp(
+      title: 'EasyPage',
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+      ),
+      home: const EasyPage(),
+    ));
 
-class TabBarDemo extends StatelessWidget {
-  const TabBarDemo({super.key});
+class EasyPage extends StatelessWidget {
+  const EasyPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.white,
-            centerTitle: true,
-            bottom: const TabBar(
-              tabs: [
-                // 커스텀 위젯으로 바꿔야 하는데 Icon을 변수로 만드는 법 알아야 함
-                Tab(
-                    icon: Icon(
-                  Icons.yard_outlined,
-                  color: Colors.black,
-                )),
-                Tab(
-                    icon: Icon(
-                  Icons.checklist_rtl_outlined,
-                  color: Colors.black,
-                )),
-                Tab(
-                    icon: Icon(
-                  Icons.pending_actions_sharp,
-                  color: Colors.black,
-                )),
-              ],
-            ),
-            title: Text(
-              'How About Your Today?',
-              style: TextStyle(
-                color: Colors.blue.shade300,
-                fontWeight: FontWeight.w600,
-                fontFamily: "NewFont",
-              ),
-            ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Center(
+            child: Text("Frist Project"),
           ),
-          body: TabBarView(
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(70.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // 페이지 이동 넣어야 함
-              Image.asset("assets/images/flower.png"),
-              const Icon(Icons.checklist_rtl_outlined),
-              const Icon(Icons.pending_actions_sharp),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(100, 100),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(80),
+                      ),
+                    ),
+                    child: const Text("Flower"),
+                  ),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Survey(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(100, 100),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(80),
+                      ),
+                    ),
+                    child: const Text("Survey"),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(100, 100),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(80),
+                      ),
+                    ),
+                    child: const Text("Grape"),
+                  ),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(100, 100),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(80),
+                      ),
+                    ),
+                    child: const Text("Setting"),
+                  ),
+                ],
+              )
             ],
           ),
         ),

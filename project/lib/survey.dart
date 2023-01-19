@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,6 +12,8 @@ enum ASW2 { Terrible, Bad, Soso, Good, Excellent }
 
 enum ASW3 { Terrible, Bad, Soso, Good, Excellent }
 
+enum ASW4 { Terrible, Bad, Soso, Good, Excellent }
+
 class Survey extends StatefulWidget {
   const Survey({super.key});
 
@@ -21,11 +25,21 @@ class _SurveyState extends State<Survey> {
   ASW? _character = ASW.Terrible;
   ASW2? _character2 = ASW2.Terrible;
   ASW3? _character3 = ASW3.Terrible;
+  ASW4? _character4 = ASW4.Terrible;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Daily Survey"),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_ios_new),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -79,10 +93,39 @@ class _SurveyState extends State<Survey> {
                 Answer3('Soso', ASW3.Soso),
                 Answer3('Good', ASW3.Good),
                 Answer3('Excellent', ASW3.Excellent),
+                const Text(
+                  "3.  오늘 먹은 햄버거의 맛은?",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: "NewFont",
+                  ),
+                ),
+                Answer3('Terrible', ASW3.Terrible),
+                Answer3('Bad', ASW3.Bad),
+                Answer3('Soso', ASW3.Soso),
+                Answer3('Good', ASW3.Good),
+                Answer3('Excellent', ASW3.Excellent),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  ListTile Answer4(String text, ASW4 asw) {
+    return ListTile(
+      title: Text(text),
+      leading: Radio<ASW4>(
+        value: asw,
+        groupValue: _character4,
+        onChanged: (ASW4? value) {
+          setState(() {
+            _character4 = value;
+          });
+        },
       ),
     );
   }
