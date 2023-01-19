@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:project/flower.dart';
+import 'package:project/grape.dart';
+import 'package:project/setting.dart';
 import 'package:project/survey.dart';
 
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   Firebase.initializeApp();
+//   runApp(MaterialApp(
+//     title: 'EasyPage',
+//     theme: ThemeData(
+//       primaryColor: Colors.blue,
+//     ),
+//     home: const EasyPage(),
+//   ));
+// }
 void main() => runApp(MaterialApp(
       title: 'EasyPage',
       theme: ThemeData(
@@ -18,7 +32,7 @@ class EasyPage extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Center(
-            child: Text("Frist Project"),
+            child: Text("Frist Project!"),
           ),
         ),
         body: Padding(
@@ -29,7 +43,14 @@ class EasyPage extends StatelessWidget {
               Row(
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Flower(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       fixedSize: const Size(100, 100),
                       shape: RoundedRectangleBorder(
@@ -63,7 +84,14 @@ class EasyPage extends StatelessWidget {
               Row(
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Grape(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       fixedSize: const Size(100, 100),
                       shape: RoundedRectangleBorder(
@@ -76,7 +104,14 @@ class EasyPage extends StatelessWidget {
                     width: 50,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Setting(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       fixedSize: const Size(100, 100),
                       shape: RoundedRectangleBorder(

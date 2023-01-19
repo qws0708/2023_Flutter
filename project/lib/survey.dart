@@ -22,10 +22,15 @@ class Survey extends StatefulWidget {
 }
 
 class _SurveyState extends State<Survey> {
-  ASW? _character = ASW.Terrible;
-  ASW2? _character2 = ASW2.Terrible;
-  ASW3? _character3 = ASW3.Terrible;
-  ASW4? _character4 = ASW4.Terrible;
+  ASW? _character;
+  ASW2? _character2;
+  ASW3? _character3;
+  ASW4? _character4;
+  int value1 = 0;
+  int value2 = 0;
+  int value3 = 0;
+  int value4 = 0;
+  int submitvalue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +48,7 @@ class _SurveyState extends State<Survey> {
         body: SingleChildScrollView(
           child: Center(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 const SizedBox(
                   height: 30,
@@ -94,18 +99,35 @@ class _SurveyState extends State<Survey> {
                 Answer3('Good', ASW3.Good),
                 Answer3('Excellent', ASW3.Excellent),
                 const Text(
-                  "3.  오늘 먹은 햄버거의 맛은?",
+                  "4.  오늘 먹은 햄버거의 맛은?",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                     fontFamily: "NewFont",
                   ),
                 ),
-                Answer3('Terrible', ASW3.Terrible),
-                Answer3('Bad', ASW3.Bad),
-                Answer3('Soso', ASW3.Soso),
-                Answer3('Good', ASW3.Good),
-                Answer3('Excellent', ASW3.Excellent),
+                Answer4('Terrible', ASW4.Terrible),
+                Answer4('Bad', ASW4.Bad),
+                Answer4('Soso', ASW4.Soso),
+                Answer4('Good', ASW4.Good),
+                Answer4('Excellent', ASW4.Excellent),
+                const SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    submitvalue = value1 + value2 + value3 + value4;
+                    Navigator.pop(context);
+                    //print(submitvalue);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(100, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text("Submit"),
+                )
               ],
             ),
           ),
@@ -124,6 +146,17 @@ class _SurveyState extends State<Survey> {
         onChanged: (ASW4? value) {
           setState(() {
             _character4 = value;
+            if (_character4 == ASW4.Terrible) {
+              value4 = 0;
+            } else if (_character4 == ASW4.Bad) {
+              value4 = 1;
+            } else if (_character4 == ASW4.Soso) {
+              value4 = 2;
+            } else if (_character4 == ASW4.Good) {
+              value4 = 3;
+            } else if (_character4 == ASW4.Excellent) {
+              value4 = 4;
+            }
           });
         },
       ),
@@ -140,6 +173,17 @@ class _SurveyState extends State<Survey> {
         onChanged: (ASW3? value) {
           setState(() {
             _character3 = value;
+            if (_character3 == ASW3.Terrible) {
+              value3 = 0;
+            } else if (_character3 == ASW3.Bad) {
+              value3 = 1;
+            } else if (_character3 == ASW3.Soso) {
+              value3 = 2;
+            } else if (_character3 == ASW3.Good) {
+              value3 = 3;
+            } else if (_character3 == ASW3.Excellent) {
+              value3 = 4;
+            }
           });
         },
       ),
@@ -156,6 +200,17 @@ class _SurveyState extends State<Survey> {
         onChanged: (ASW2? value) {
           setState(() {
             _character2 = value;
+            if (_character2 == ASW2.Terrible) {
+              value2 = 0;
+            } else if (_character2 == ASW2.Bad) {
+              value2 = 1;
+            } else if (_character2 == ASW2.Soso) {
+              value2 = 2;
+            } else if (_character2 == ASW2.Good) {
+              value2 = 3;
+            } else if (_character2 == ASW2.Excellent) {
+              value2 = 4;
+            }
           });
         },
       ),
@@ -172,6 +227,17 @@ class _SurveyState extends State<Survey> {
         onChanged: (ASW? value) {
           setState(() {
             _character = value;
+            if (_character == ASW.Terrible) {
+              value1 = 0;
+            } else if (_character == ASW.Bad) {
+              value1 = 1;
+            } else if (_character == ASW.Soso) {
+              value1 = 2;
+            } else if (_character == ASW.Good) {
+              value1 = 3;
+            } else if (_character == ASW.Excellent) {
+              value1 = 4;
+            }
           });
         },
       ),
