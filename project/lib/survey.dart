@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -14,6 +15,8 @@ enum ASW2 { Terrible, Bad, Soso, Good, Excellent }
 enum ASW3 { Terrible, Bad, Soso, Good, Excellent }
 
 enum ASW4 { Terrible, Bad, Soso, Good, Excellent }
+
+var grapelist = [];
 
 class Survey extends StatefulWidget {
   const Survey({super.key});
@@ -53,6 +56,16 @@ class _SurveyState extends State<Survey> {
     setState(() {
       _counter = (prefs.getInt('counter') ?? 0) + submitvalue;
       prefs.setInt('counter', _counter);
+      grapelist.add(_counter);
+      print("$grapelist");
+    });
+  }
+
+  Future<void> _deleteCounter() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.remove("counter");
+      grapelist.clear();
     });
   }
 
@@ -103,7 +116,7 @@ class _SurveyState extends State<Survey> {
                 ),
                 Answer2('Terrible', ASW2.Terrible),
                 Answer2('Bad', ASW2.Bad),
-                Answer2('Bad', ASW2.Soso),
+                Answer2('Soso', ASW2.Soso),
                 Answer2('Good', ASW2.Good),
                 Answer2('Excellent', ASW2.Excellent),
                 const SizedBox(
@@ -157,6 +170,21 @@ class _SurveyState extends State<Survey> {
                     ),
                   ),
                   child: const Text("Submit"),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _deleteCounter();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(130, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text("Delete All Data"),
                 )
               ],
             ),

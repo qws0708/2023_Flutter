@@ -88,7 +88,7 @@ class EasyPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Grape(),
+                          builder: (context) => Grape(),
                         ),
                       );
                     },
