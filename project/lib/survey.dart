@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const Survey());
@@ -26,11 +27,34 @@ class _SurveyState extends State<Survey> {
   ASW2? _character2;
   ASW3? _character3;
   ASW4? _character4;
-  int value1 = 0;
-  int value2 = 0;
-  int value3 = 0;
-  int value4 = 0;
-  int submitvalue = 0;
+  int value1 = 0; //문항 1 답변 값 Int
+  int value2 = 0; //문항 2 답변 값 Int
+  int value3 = 0; //문항 3 답변 값 Int
+  int value4 = 0; //문항 4 답변 값 Int
+  int submitvalue = 0; //전체 문항 답변 값의 합 Int
+
+  int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCounter();
+  }
+
+  Future<void> _loadCounter() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _counter = (prefs.getInt('counter') ?? 0);
+    });
+  }
+
+  Future<void> _incrementCounter() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _counter = (prefs.getInt('counter') ?? 0) + submitvalue;
+      prefs.setInt('counter', _counter);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,11 +138,17 @@ class _SurveyState extends State<Survey> {
                 const SizedBox(
                   height: 40,
                 ),
+                Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
                 ElevatedButton(
                   onPressed: () {
                     submitvalue = value1 + value2 + value3 + value4;
-                    Navigator.pop(context);
-                    //print(submitvalue);
+                    _incrementCounter();
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(100, 50),
