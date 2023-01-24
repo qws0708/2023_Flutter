@@ -5,10 +5,11 @@ void main() {
   runApp(Grape());
 }
 
+// ignore: must_be_immutable
 class Grape extends StatelessWidget {
   Grape({super.key});
 
-  var count = grape.grapelist;
+  int count = grape.grapecount;
 
   @override
   Widget build(BuildContext context) {

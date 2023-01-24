@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:project/survey.dart' as image;
 
 void main() {
-  runApp(const Flower());
+  runApp(Flower());
 }
 
+// ignore: must_be_immutable
 class Flower extends StatelessWidget {
-  const Flower({super.key});
+  Flower({super.key});
+
+  int count = image.grapecount;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +24,16 @@ class Flower extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios_new),
           ),
         ),
-        body: Image.asset("assets/images/flower.png"),
+        body: Center(
+          child: count >= 0 && count < 5
+              ? Image.asset("assets/images/sad flower.png")
+              : count >= 5 && count < 10
+                  ? Image.asset("assets/images/normal flower.png")
+                  : Image.asset("assets/images/happy flower.png"),
+        ),
       ),
     );
   }
 }
+
+//Image.asset("assets/images/sad flower.png");

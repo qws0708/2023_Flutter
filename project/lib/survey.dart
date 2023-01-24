@@ -16,7 +16,7 @@ enum ASW3 { Terrible, Bad, Soso, Good, Excellent }
 
 enum ASW4 { Terrible, Bad, Soso, Good, Excellent }
 
-var grapelist = [];
+int grapecount = 0;
 
 class Survey extends StatefulWidget {
   const Survey({super.key});
@@ -37,6 +37,7 @@ class _SurveyState extends State<Survey> {
   int submitvalue = 0; //전체 문항 답변 값의 합 Int
 
   int _counter = 0;
+  String grapestring = "";
 
   @override
   void initState() {
@@ -48,6 +49,7 @@ class _SurveyState extends State<Survey> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _counter = (prefs.getInt('counter') ?? 0);
+      grapestring = _counter.toString();
     });
   }
 
@@ -56,8 +58,7 @@ class _SurveyState extends State<Survey> {
     setState(() {
       _counter = (prefs.getInt('counter') ?? 0) + submitvalue;
       prefs.setInt('counter', _counter);
-      grapelist.add(_counter);
-      print("$grapelist");
+      grapecount = _counter;
     });
   }
 
@@ -65,7 +66,6 @@ class _SurveyState extends State<Survey> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       prefs.remove("counter");
-      grapelist.clear();
     });
   }
 
