@@ -4,17 +4,6 @@ import 'package:project/grape.dart';
 import 'package:project/setting.dart';
 import 'package:project/survey.dart';
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   Firebase.initializeApp();
-//   runApp(MaterialApp(
-//     title: 'EasyPage',
-//     theme: ThemeData(
-//       primaryColor: Colors.blue,
-//     ),
-//     home: const EasyPage(),
-//   ));
-// }
 void main() => runApp(MaterialApp(
       title: 'EasyPage',
       theme: ThemeData(

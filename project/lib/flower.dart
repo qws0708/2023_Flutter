@@ -25,9 +25,9 @@ class Flower extends StatelessWidget {
           ),
         ),
         body: Center(
-          child: count >= 0 && count < 5
+          child: count >= 0 && count < 6
               ? Image.asset("assets/images/sad flower.png")
-              : count >= 5 && count < 10
+              : count >= 6 && count < 11
                   ? Image.asset("assets/images/normal flower.png")
                   : Image.asset("assets/images/happy flower.png"),
         ),

@@ -37,7 +37,6 @@ class _SurveyState extends State<Survey> {
   int submitvalue = 0; //전체 문항 답변 값의 합 Int
 
   int _counter = 0;
-  String grapestring = "";
 
   @override
   void initState() {
@@ -49,7 +48,6 @@ class _SurveyState extends State<Survey> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _counter = (prefs.getInt('counter') ?? 0);
-      grapestring = _counter.toString();
     });
   }
 
@@ -153,7 +151,7 @@ class _SurveyState extends State<Survey> {
                 ),
                 Text(
                   '$_counter',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(
                   height: 40,
