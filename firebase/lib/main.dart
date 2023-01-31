@@ -8,8 +8,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-var a;
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -17,13 +15,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Center(
-          child: ElevatedButton(onPressed: readData, child: Text("data"))),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              ElevatedButton(
+                onPressed: readData,
+                child: Text("read data"),
+              ),
+              ElevatedButton(
+                onPressed: addData,
+                child: Text("send data"),
+              ),
+              ElevatedButton(
+                onPressed: updateData,
+                child: Text("update data"),
+              ),
+              ElevatedButton(
+                onPressed: deleteAllData,
+                child: Text("delete data"),
+              ),
+              ElevatedButton(
+                onPressed: deletePartData,
+                child: Text("delete Part data"),
+              ),
+            ],
+          ),
+        ));
   }
 }
 
@@ -32,4 +54,32 @@ void readData() {
       .collection("FirestoreDemo") //colleection 이름
       .doc('aSrMicViLUAtnCXB5w6k'); //문서 ID
   userCollectionReference.get().then((value) => print(value.data()));
+}
+
+void addData() {
+  final userCollectionReference = FirebaseFirestore.instance
+      .collection("FirestoreDemo") //colleection 이름
+      .doc('userkey1'); //문서 ID
+  userCollectionReference.set({"name:": '안성우', 'age:': 25});
+}
+
+void updateData() {
+  final userCollectionReference = FirebaseFirestore.instance
+      .collection("FirestoreDemo") //colleection 이름
+      .doc('userkey1'); //문서 ID
+  userCollectionReference.update({'age:': 13});
+}
+
+void deleteAllData() {
+  final userCollectionReference = FirebaseFirestore.instance
+      .collection("FirestoreDemo") //colleection 이름
+      .doc('userkey1'); //문서 ID
+  userCollectionReference.delete();
+}
+
+void deletePartData() {
+  final userCollectionReference = FirebaseFirestore.instance
+      .collection("FirestoreDemo") //colleection 이름
+      .doc('userkey1'); //문서 ID
+  userCollectionReference.update({'age:': FieldValue.delete()});
 }
