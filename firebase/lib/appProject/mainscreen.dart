@@ -1,3 +1,4 @@
+import 'package:firebase/appProject/grape.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/appProject/main.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -73,7 +74,14 @@ class _EasyPageState extends State<EasyPage> {
               Row(
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Grape(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       fixedSize: const Size(100, 100),
                       shape: RoundedRectangleBorder(
