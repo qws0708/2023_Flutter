@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/appProject/get_number.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -18,7 +19,25 @@ class Grape extends StatefulWidget {
 }
 
 class _GrapeState extends State<Grape> {
-  FirebaseFirestore db = FirebaseFirestore.instance;
+  List<String> docIDs = [];
+
+  Future getDocId() async {
+    await FirebaseFirestore.instance.collection('Counter Number').get().then(
+          (snapshot) => snapshot.docs.forEach(
+            (document) {
+              //print(document.reference);
+              docIDs.add(document.reference.id);
+            },
+          ),
+        );
+  }
+
+  // @override
+  // void initState() {
+  //   getDocId();
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,15 +51,29 @@ class _GrapeState extends State<Grape> {
             icon: const Icon(Icons.arrow_back_ios_new),
           ),
         ),
-        body: Column(
-          children: [
-            Center(
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text("DownLoad Data"),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("test"),
+              Expanded(
+                child: FutureBuilder(
+                  future: getDocId(),
+                  builder: (context, snapshot) {
+                    return ListView.builder(
+                      itemCount: docIDs.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                            title: GetNumber(
+                          documentId: docIDs[index],
+                        ));
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
