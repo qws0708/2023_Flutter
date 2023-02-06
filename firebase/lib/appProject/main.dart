@@ -171,7 +171,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    _zero();
+                    clearall();
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(100, 50),
@@ -179,7 +179,7 @@ class _MyAppState extends State<MyApp> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text("zero"),
+                  child: const Text("clearall"),
                 ),
               ],
             ),
@@ -193,7 +193,17 @@ class _MyAppState extends State<MyApp> {
     final userCollectionReference = FirebaseFirestore.instance
         .collection("Counter Number") //colleection 이름
         .doc('$number'); //문서 ID
-    userCollectionReference.set({"total": submitvalue});
+    userCollectionReference
+        .set({"total": submitvalue, 'time': Timestamp.now()});
+  }
+
+  void clearall() {
+    // 데이터 전부 삭제
+    for (int i = 0; i < number; i++) {
+      final userCollectionReference =
+          FirebaseFirestore.instance.collection("Counter Number").doc("$i");
+      userCollectionReference.delete();
+    }
   }
 
   // ignore: non_constant_identifier_names
