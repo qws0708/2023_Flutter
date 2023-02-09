@@ -23,6 +23,7 @@ class _GrapeState extends State<Grape> {
 
   Future getDocId() async {
     await FirebaseFirestore.instance.collection('Counter Number').get().then(
+          // ignore: avoid_function_literals_in_foreach_calls
           (snapshot) => snapshot.docs.forEach(
             (document) {
               //print(document.reference);
@@ -31,12 +32,6 @@ class _GrapeState extends State<Grape> {
           ),
         );
   }
-
-  // @override
-  // void initState() {
-  //   getDocId();
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {

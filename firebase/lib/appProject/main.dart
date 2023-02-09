@@ -58,7 +58,8 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  Future<void> _zero() async {
+  // ignore: non_constant_identifier_names
+  Future<void> _number_to_zero() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       number = 0;
@@ -172,6 +173,7 @@ class _MyAppState extends State<MyApp> {
                 ElevatedButton(
                   onPressed: () {
                     clearall();
+                    _number_to_zero();
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(100, 50),
@@ -190,6 +192,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void addData() {
+    // 데이터 추가
     final userCollectionReference = FirebaseFirestore.instance
         .collection("Counter Number") //colleection 이름
         .doc('$number'); //문서 ID
