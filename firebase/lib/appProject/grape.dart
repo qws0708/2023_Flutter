@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase/appProject/get_number.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
+import 'get_number.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,36 +22,14 @@ class Grape extends StatefulWidget {
 
 class _GrapeState extends State<Grape> {
   List<String> docIDs = [];
-  List<double> papa = [];
-  List<_SalesData> data = [
-    _SalesData('1', 10),
-    _SalesData('2', 28),
-    _SalesData('3', 34),
-    _SalesData('4', 32),
-    _SalesData('5', 40),
-    _SalesData('6', 15),
-    _SalesData('7', 20),
-    _SalesData('8', 25),
-    _SalesData('9', 30),
-    _SalesData('10', 35),
-    _SalesData('11', 20),
-    _SalesData('12', 28),
-    _SalesData('13', 12),
-    _SalesData('14', 45),
-    _SalesData('15', 20),
-    _SalesData('16', 23),
-    _SalesData('17', 13),
-    _SalesData('18', 30),
-    _SalesData('19', 36),
-    _SalesData('20', 47),
-  ];
+  List<int> total = [];
+  List<_SalesData> grapedata = [];
 
   Future getDocId() async {
     await FirebaseFirestore.instance.collection('Counter Number').get().then(
           // ignore: avoid_function_literals_in_foreach_calls
           (snapshot) => snapshot.docs.forEach(
             (document) {
-              //print(document.reference);
               docIDs.add(document.reference.id);
             },
           ),
@@ -100,7 +79,7 @@ class _GrapeState extends State<Grape> {
                 tooltipBehavior: TooltipBehavior(enable: true),
                 series: <ChartSeries<_SalesData, String>>[
                   LineSeries<_SalesData, String>(
-                      dataSource: data,
+                      dataSource: grapedata,
                       xValueMapper: (_SalesData sales, _) => sales.year,
                       yValueMapper: (_SalesData sales, _) => sales.sales,
                       dataLabelSettings:
@@ -119,5 +98,5 @@ class _SalesData {
   _SalesData(this.year, this.sales);
 
   final String year;
-  final double sales;
+  final int sales;
 }

@@ -18,6 +18,9 @@ enum ASW3 { Terrible, Bad, Soso, Good, Excellent }
 
 enum ASW4 { Terrible, Bad, Soso, Good, Excellent }
 
+List<int> score = [];
+List<String> time = [];
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -48,6 +51,8 @@ class _MyAppState extends State<MyApp> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       number = (prefs.getInt('counter') ?? 0);
+      time = (prefs.getStringList("grapeDate") ?? []);
+      score;
     });
   }
 
@@ -199,8 +204,10 @@ class _MyAppState extends State<MyApp> {
         .doc('$number'); //문서 ID
     userCollectionReference.set({
       "total": submitvalue,
-      'time': DateFormat.yMMMd().format(DateTime.now())
+      'time': DateFormat.MMMd().format(DateTime.now())
     });
+    score.add(submitvalue);
+    time.add(DateFormat.MMMd().format(DateTime.now()));
   }
 
   void clearall() {

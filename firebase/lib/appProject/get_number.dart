@@ -24,16 +24,3 @@ class GetNumber extends StatelessWidget {
     );
   }
 }
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    Stream documentStream = FirebaseFirestore.instance
-        .collection('Counter Number')
-        .doc('0')
-        .snapshots();
-    return const Placeholder();
-  }
-}
