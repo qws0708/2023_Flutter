@@ -20,6 +20,7 @@ class Grape extends StatefulWidget {
 
 class _GrapeState extends State<Grape> {
   List<String> docIDs = [];
+  List<double> papa = [];
 
   Future getDocId() async {
     await FirebaseFirestore.instance.collection('Counter Number').get().then(

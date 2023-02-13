@@ -25,11 +25,26 @@ class _MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<_MyHomePage> {
   List<_SalesData> data = [
-    _SalesData('Jan', 10),
-    _SalesData('Feb', 28),
-    _SalesData('Mar', 34),
-    _SalesData('Apr', 32),
-    _SalesData('May', 40)
+    _SalesData('1', 10),
+    _SalesData('2', 28),
+    _SalesData('3', 34),
+    _SalesData('4', 32),
+    _SalesData('5', 40),
+    _SalesData('6', 15),
+    _SalesData('7', 20),
+    _SalesData('8', 25),
+    _SalesData('9', 30),
+    _SalesData('10', 35),
+    _SalesData('11', 20),
+    _SalesData('12', 28),
+    _SalesData('13', 12),
+    _SalesData('14', 45),
+    _SalesData('15', 20),
+    _SalesData('16', 23),
+    _SalesData('17', 13),
+    _SalesData('18', 30),
+    _SalesData('19', 36),
+    _SalesData('20', 47),
   ];
   @override
   Widget build(BuildContext context) {
@@ -39,22 +54,15 @@ class _MyHomePageState extends State<_MyHomePage> {
       ),
       body: Column(
         children: [
-          //Initialize the chart widget
           SfCartesianChart(
             primaryXAxis: CategoryAxis(),
-            // Chart title
             title: ChartTitle(text: 'Half yearly sales analysis'),
-            // Enable legend
-            //legend: Legend(isVisible: true),
-            // Enable tooltip
             tooltipBehavior: TooltipBehavior(enable: true),
             series: <ChartSeries<_SalesData, String>>[
               LineSeries<_SalesData, String>(
                   dataSource: data,
                   xValueMapper: (_SalesData sales, _) => sales.year,
                   yValueMapper: (_SalesData sales, _) => sales.sales,
-                  //name: 'Sales',
-                  // Enable data label
                   dataLabelSettings: const DataLabelSettings(isVisible: true))
             ],
           ),

@@ -15,10 +15,23 @@ class GetNumber extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
-          return Text("number: ${data['total']}");
+          return Text("${data['total']}");
         }
         return const Text("loading...");
       }),
     );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Stream documentStream = FirebaseFirestore.instance
+        .collection('Counter Number')
+        .doc('0')
+        .snapshots();
+    return const Placeholder();
   }
 }
