@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -196,8 +197,10 @@ class _MyAppState extends State<MyApp> {
     final userCollectionReference = FirebaseFirestore.instance
         .collection("Counter Number") //colleection 이름
         .doc('$number'); //문서 ID
-    userCollectionReference
-        .set({"total": submitvalue, 'time': Timestamp.now()});
+    userCollectionReference.set({
+      "total": submitvalue,
+      'time': DateFormat.yMMMd().format(DateTime.now())
+    });
   }
 
   void clearall() {
