@@ -15,7 +15,7 @@ class GetNumber extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
-          print(data);
+          //print(data);
           return Text(
               "Date :     ${data['time']}\nScore :     ${data['total']}");
         }

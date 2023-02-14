@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
 import 'get_number.dart';
 
 void main() async {
@@ -22,8 +21,8 @@ class Grape extends StatefulWidget {
 
 class _GrapeState extends State<Grape> {
   List<String> docIDs = [];
-  List<int> total = [];
-  List<_SalesData> grapedata = [];
+  List<_SalesData> grapedata = []; //그래프 리스트
+  late Future myFuture; // null값  방지 late로 나중에 정의
 
   Future getDocId() async {
     await FirebaseFirestore.instance.collection('Counter Number').get().then(
@@ -34,6 +33,13 @@ class _GrapeState extends State<Grape> {
             },
           ),
         );
+  }
+
+  @override
+  void initState() {
+    // assign this variable your Future
+    myFuture = getDocId(); //initState로 여러번 rebuild 방지
+    super.initState();
   }
 
   @override
@@ -55,7 +61,7 @@ class _GrapeState extends State<Grape> {
             children: [
               Expanded(
                 child: FutureBuilder(
-                  future: getDocId(),
+                  future: myFuture,
                   builder: (context, snapshot) {
                     return SizedBox(
                       width: MediaQuery.of(context).size.width,
