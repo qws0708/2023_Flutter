@@ -25,15 +25,15 @@ class _GrapeState extends State<Grape> {
 
   List<_SalesData> grapeData = [];
 
+  Future wait() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return grapeData;
+  }
+
   @override
   Widget build(BuildContext context) {
     CollectionReference users =
         FirebaseFirestore.instance.collection(("Counter Number"));
-    for (int i = 0; i < _yValue.length; i++) {
-      grapeData.add(_SalesData(_xValue[i], _yValue[i]));
-    }
-    print("grapeData:");
-    print(grapeData);
 
     return MaterialApp(
       home: Scaffold(
@@ -69,7 +69,9 @@ class _GrapeState extends State<Grape> {
                           itemBuilder: (context, index) {
                             _yValue.add(snapshot.data!.docs[index]['total']);
                             _xValue.add(snapshot.data!.docs[index]['time']);
-                            print(_yValue);
+                            grapeData.add(
+                                _SalesData(_xValue[index], _yValue[index]));
+
                             return ListTile(
                               title: Text(
                                   ' Date : ${snapshot.data!.docs[index]['time']}'),
@@ -81,21 +83,26 @@ class _GrapeState extends State<Grape> {
                   },
                 ),
               ),
-              Expanded(
-                child: SfCartesianChart(
-                  primaryXAxis: CategoryAxis(),
-                  title: ChartTitle(text: 'Grape Against Record '),
-                  tooltipBehavior: TooltipBehavior(enable: true),
-                  series: <ChartSeries<_SalesData, String>>[
-                    LineSeries<_SalesData, String>(
-                        dataSource: grapeData,
-                        xValueMapper: (_SalesData sales, _) => sales.time,
-                        yValueMapper: (_SalesData sales, _) => sales.score,
-                        dataLabelSettings:
-                            const DataLabelSettings(isVisible: true))
-                  ],
-                ),
-              )
+              FutureBuilder(
+                  future: wait(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData == false) {
+                      return const CircularProgressIndicator();
+                    }
+                    return SfCartesianChart(
+                      primaryXAxis: CategoryAxis(),
+                      title: ChartTitle(text: 'Fucking Grape'),
+                      tooltipBehavior: TooltipBehavior(enable: true),
+                      series: <ChartSeries<_SalesData, String>>[
+                        LineSeries<_SalesData, String>(
+                            dataSource: grapeData,
+                            xValueMapper: (_SalesData sales, _) => sales.time,
+                            yValueMapper: (_SalesData sales, _) => sales.score,
+                            dataLabelSettings:
+                                const DataLabelSettings(isVisible: true))
+                      ],
+                    );
+                  })
             ],
           ),
         ),
