@@ -1,10 +1,13 @@
 // ignore_for_file: constant_identifier_names
-
-import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const Survey());
 }
 
@@ -36,35 +39,20 @@ class _SurveyState extends State<Survey> {
   int value4 = 0; //문항 4 답변 값 Int
   int submitvalue = 0; //전체 문항 답변 값의 합 Int
 
-  int _counter = 0;
+  int counter = 0;
+  int filenumber = 0;
 
   @override
-  void initState() {
-    super.initState();
-    _loadCounter();
-  }
-
-  Future<void> _loadCounter() async {
-    final prefs = await SharedPreferences.getInstance();
+  void addData() async {
     setState(() {
-      _counter = (prefs.getInt('counter') ?? 0);
+      filenumber++;
+      counter = submitvalue;
     });
-  }
 
-  Future<void> _incrementCounter() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _counter = (prefs.getInt('counter') ?? 0) + submitvalue;
-      prefs.setInt('counter', _counter);
-      grapecount = _counter;
-    });
-  }
-
-  Future<void> _deleteCounter() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs.remove("counter");
-    });
+    final userCollectionReference = FirebaseFirestore.instance
+        .collection("Count Number") //colleection 이름
+        .doc('$filenumber'); //문서 ID
+    userCollectionReference.set({"number:": counter});
   }
 
   @override
@@ -150,7 +138,7 @@ class _SurveyState extends State<Survey> {
                   height: 40,
                 ),
                 Text(
-                  '$_counter',
+                  '$counter',
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(
@@ -159,7 +147,7 @@ class _SurveyState extends State<Survey> {
                 ElevatedButton(
                   onPressed: () {
                     submitvalue = value1 + value2 + value3 + value4;
-                    _incrementCounter();
+                    addData();
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(100, 50),
@@ -173,9 +161,7 @@ class _SurveyState extends State<Survey> {
                   height: 40,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    _deleteCounter();
-                  },
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(130, 50),
                     shape: RoundedRectangleBorder(

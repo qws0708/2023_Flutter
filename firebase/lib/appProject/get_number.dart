@@ -15,9 +15,33 @@ class GetNumber extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
-          //print(data);
+
           return Text(
               "Date :     ${data['time']}\nScore :     ${data['total']}");
+        }
+        return const Text("loading...");
+      }),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class GetGrapeData extends StatelessWidget {
+  final String documentId;
+  const GetGrapeData({super.key, required this.documentId});
+
+  @override
+  Widget build(BuildContext context) {
+    CollectionReference users =
+        FirebaseFirestore.instance.collection(("Counter Number"));
+    return FutureBuilder<DocumentSnapshot>(
+      future: users.doc(documentId).get(),
+      builder: ((context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
+
+          return Text('${data['total']}');
         }
         return const Text("loading...");
       }),
