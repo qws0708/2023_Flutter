@@ -48,9 +48,9 @@ class _GrapeState extends State<Grape> {
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
+              SizedBox(
+                height: 300,
                 child: StreamBuilder(
                   stream: users.snapshots(),
                   builder: (context, snapshot) {
@@ -61,48 +61,50 @@ class _GrapeState extends State<Grape> {
                       return const Text("Loading");
                     }
 
-                    return SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 270,
-                      child: ListView.builder(
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            _yValue.add(snapshot.data!.docs[index]['total']);
-                            _xValue.add(snapshot.data!.docs[index]['time']);
-                            grapeData.add(
-                                _SalesData(_xValue[index], _yValue[index]));
+                    return ListView.builder(
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          _yValue.add(snapshot.data!.docs[index]['total']);
+                          _xValue.add(snapshot.data!.docs[index]['time']);
+                          grapeData
+                              .add(_SalesData(_xValue[index], _yValue[index]));
 
-                            return ListTile(
-                              title: Text(
-                                  ' Date : ${snapshot.data!.docs[index]['time']}'),
-                              subtitle: Text(
-                                  '  Score : ${snapshot.data!.docs[index]['total']}'),
-                            );
-                          }),
-                    );
+                          return ListTile(
+                            title: Text(
+                                ' Date : ${snapshot.data!.docs[index]['time']}'),
+                            subtitle: Text(
+                                '  Score : ${snapshot.data!.docs[index]['total']}'),
+                          );
+                        });
                   },
                 ),
               ),
-              FutureBuilder(
-                  future: wait(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData == false) {
-                      return const CircularProgressIndicator();
-                    }
-                    return SfCartesianChart(
-                      primaryXAxis: CategoryAxis(),
-                      title: ChartTitle(text: 'Fucking Grape'),
-                      tooltipBehavior: TooltipBehavior(enable: true),
-                      series: <ChartSeries<_SalesData, String>>[
-                        LineSeries<_SalesData, String>(
-                            dataSource: grapeData,
-                            xValueMapper: (_SalesData sales, _) => sales.time,
-                            yValueMapper: (_SalesData sales, _) => sales.score,
-                            dataLabelSettings:
-                                const DataLabelSettings(isVisible: true))
-                      ],
-                    );
-                  })
+              SizedBox(
+                height: 300,
+                child: FutureBuilder(
+                    future: wait(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData == false) {
+                        return const Align(
+                            alignment: Alignment.center,
+                            child: CircularProgressIndicator());
+                      }
+                      return SfCartesianChart(
+                        primaryXAxis: CategoryAxis(),
+                        title: ChartTitle(text: 'Fucking Grape'),
+                        tooltipBehavior: TooltipBehavior(enable: true),
+                        series: <ChartSeries<_SalesData, String>>[
+                          LineSeries<_SalesData, String>(
+                              dataSource: grapeData,
+                              xValueMapper: (_SalesData sales, _) => sales.time,
+                              yValueMapper: (_SalesData sales, _) =>
+                                  sales.score,
+                              dataLabelSettings:
+                                  const DataLabelSettings(isVisible: true))
+                        ],
+                      );
+                    }),
+              )
             ],
           ),
         ),
