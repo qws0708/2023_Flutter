@@ -9,8 +9,6 @@ void main() async {
   runApp(const Grape());
 }
 
-// ignore: must_be_immutable
-
 class Grape extends StatefulWidget {
   const Grape({super.key});
 
@@ -19,11 +17,41 @@ class Grape extends StatefulWidget {
 }
 
 class _GrapeState extends State<Grape> {
-  List<String> docIDs = [];
+  // void initState() {
+  //   super.initState();
+  //   _loadCounter();
+  // }
+
+  // Future<void> _loadCounter() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     addAllData = (prefs.getInt('counter') ?? 0);
+  //   });
+  // }
+
+  // Future<void> _divideAllGrapeData() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     divide = (addAllData / counter) as int;
+  //     prefs.setInt('divide', divide);
+  //   });
+  // }
+
+  // // ignore: non_constant_identifier_names
+  // Future<void> _number_to_zero() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     prefs.setInt('counter', addAllData);
+  //   });
+  // }
+
+  // ignore: must_be_immutable
   final List<int> _yValue = []; //그래프 y축 값
   final List<String> _xValue = []; //그래프 x축 값
-
   List<_SalesData> grapeData = [];
+  int addAllData = 0;
+  int counter = 0;
+  int divide = 0;
 
   Future wait() async {
     await Future.delayed(const Duration(seconds: 1));
@@ -91,7 +119,7 @@ class _GrapeState extends State<Grape> {
                       }
                       return SfCartesianChart(
                         primaryXAxis: CategoryAxis(),
-                        title: ChartTitle(text: 'Fucking Grape'),
+                        title: ChartTitle(text: 'Example Grape'),
                         tooltipBehavior: TooltipBehavior(enable: true),
                         series: <ChartSeries<_SalesData, String>>[
                           LineSeries<_SalesData, String>(

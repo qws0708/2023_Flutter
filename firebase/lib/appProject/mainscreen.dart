@@ -25,6 +25,16 @@ class EasyPage extends StatefulWidget {
 }
 
 class _EasyPageState extends State<EasyPage> {
+  //incrementcounter
+
+  // Future<void> _incrementCounter() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   int counter =
+  //       (prefs.getInt('a') ?? 0) + 1; //a라는 key의 값을 불러와서 값이 없으면 0을 있으면 +1을 해줌
+  //   prefs.setInt('a', counter);
+  //   print(counter);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -84,6 +94,7 @@ class _EasyPageState extends State<EasyPage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
+                      //_incrementCounter();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
