@@ -16,6 +16,7 @@ class Setting extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios_new),
           ),
         ),
+        body: const Center(child: Text("Setting")),
       ),
     );
   }
