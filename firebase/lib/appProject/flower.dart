@@ -16,7 +16,7 @@ class Flower extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios_new),
           ),
         ),
-        body: const Center(child: Text("Flower")),
+        body: Center(child: Image.asset('image/Happy.png')),
       ),
     );
   }
