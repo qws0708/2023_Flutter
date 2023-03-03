@@ -37,6 +37,7 @@ class _MyAppState extends State<MyApp> {
   int submitvalue = 0; //전체 문항 답변 값의 합 Int
 
   int number = 0;
+  int totalData = 0;
 
   @override
   void initState() {
@@ -48,6 +49,7 @@ class _MyAppState extends State<MyApp> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       number = (prefs.getInt('counter') ?? 0);
+      totalData = (prefs.getInt('counter') ?? 0);
     });
   }
 
@@ -56,6 +58,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       number = (prefs.getInt('counter') ?? 0) + 1;
       prefs.setInt('counter', number);
+      totalData = (prefs.getInt('counter') ?? 0);
     });
   }
 
@@ -68,6 +71,8 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  CollectionReference users =
+      FirebaseFirestore.instance.collection(("Counter Number"));
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -157,8 +162,11 @@ class _MyAppState extends State<MyApp> {
                 ElevatedButton(
                   onPressed: () {
                     submitvalue = value1 + value2 + value3 + value4;
+                    totalData = submitvalue;
                     _incrementCounter();
                     addData();
+                    updateData();
+                    print('$submitvalue');
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(100, 50),
@@ -200,6 +208,16 @@ class _MyAppState extends State<MyApp> {
     userCollectionReference.set({
       "total": submitvalue,
       'time': DateFormat.MMMd().format(DateTime.now())
+    });
+  }
+
+  void updateData() {
+    //데이터 업데이트(점수 총 합)
+    final userCollectionReference = FirebaseFirestore.instance
+        .collection("Counter Number")
+        .doc("Total Data");
+    userCollectionReference.update({
+      "Total Data": totalData,
     });
   }
 

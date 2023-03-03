@@ -17,34 +17,6 @@ class Grape extends StatefulWidget {
 }
 
 class _GrapeState extends State<Grape> {
-  // void initState() {
-  //   super.initState();
-  //   _loadCounter();
-  // }
-
-  // Future<void> _loadCounter() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     addAllData = (prefs.getInt('counter') ?? 0);
-  //   });
-  // }
-
-  // Future<void> _divideAllGrapeData() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     divide = (addAllData / counter) as int;
-  //     prefs.setInt('divide', divide);
-  //   });
-  // }
-
-  // // ignore: non_constant_identifier_names
-  // Future<void> _number_to_zero() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     prefs.setInt('counter', addAllData);
-  //   });
-  // }
-
   // ignore: must_be_immutable
   final List<int> _yValue = []; //그래프 y축 값
   final List<String> _xValue = []; //그래프 x축 값
