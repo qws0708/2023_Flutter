@@ -20,10 +20,11 @@ class _FlowerState extends State<Flower> {
       FirebaseFirestore.instance.collection(("Counter Number"));
 
   final List<int> _allTotalValue = [];
-  final int _totallVallAdd = 0;
+
   int medium = 0;
   int total = 0;
   int length = 0;
+  String flowerName = "";
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +61,20 @@ class _FlowerState extends State<Flower> {
                       }); // 리스트 값 모두 더하기
                       length = snapshot.data!.docs.length; //리스트 개수
                       medium = (total / length).ceil(); //나눠서 반올림
-                      print(total);
-                      print(length);
+                      //print(total);
+                      //print(length);
                       print(medium);
+                      if (medium > 5 && medium < 12) {
+                        flowerName = "Bad";
+                      }
+                      if (medium >= 12 && medium < 20) {
+                        flowerName = "Happy";
+                      }
                     }
+
                     return SingleChildScrollView(
                       child: Column(children: [
-                        Image.asset('image/Happy.png'),
+                        Image.asset('image/$flowerName.png'),
                       ]),
                     );
                   },
