@@ -1,7 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-class Flower extends StatelessWidget {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const Flower());
+}
+
+class Flower extends StatefulWidget {
   const Flower({super.key});
+
+  @override
+  State<Flower> createState() => _FlowerState();
+}
+
+class _FlowerState extends State<Flower> {
+  CollectionReference users =
+      FirebaseFirestore.instance.collection(("Counter Number"));
+
+  final List<int> _allTotalValue = [];
+  final int _totallVallAdd = 0;
+  int medium = 0;
+  int total = 0;
+  int length = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +38,46 @@ class Flower extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios_new),
           ),
         ),
-        body: Center(child: Image.asset('image/Happy.png')),
+        body: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 600,
+                child: StreamBuilder(
+                  stream: users.snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Text("Loading");
+                    } else {
+                      for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                        _allTotalValue.add(snapshot.data!.docs[i]['total']);
+                      }
+                      int total = _allTotalValue.fold(0, (value, element) {
+                        return value + element;
+                      }); // 리스트 값 모두 더하기
+                      length = snapshot.data!.docs.length; //리스트 개수
+                      medium = (total / length).ceil(); //나눠서 반올림
+                      print(total);
+                      print(length);
+                      print(medium);
+                    }
+                    return SingleChildScrollView(
+                      child: Column(children: [
+                        Image.asset('image/Happy.png'),
+                      ]),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
+
+//Image.asset('image/Happy.png')

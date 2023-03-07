@@ -49,7 +49,6 @@ class _MyAppState extends State<MyApp> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       number = (prefs.getInt('counter') ?? 0);
-      totalData = (prefs.getInt('counter') ?? 0);
     });
   }
 
@@ -58,7 +57,6 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       number = (prefs.getInt('counter') ?? 0) + 1;
       prefs.setInt('counter', number);
-      totalData = (prefs.getInt('counter') ?? 0);
     });
   }
 
@@ -165,8 +163,6 @@ class _MyAppState extends State<MyApp> {
                     totalData = submitvalue;
                     _incrementCounter();
                     addData();
-                    updateData();
-                    print('$submitvalue');
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(100, 50),
@@ -211,15 +207,15 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void updateData() {
-    //데이터 업데이트(점수 총 합)
-    final userCollectionReference = FirebaseFirestore.instance
-        .collection("Counter Number")
-        .doc("Total Data");
-    userCollectionReference.update({
-      "Total Data": totalData,
-    });
-  }
+  // void updateData() {
+  //   //데이터 업데이트(점수 총 합)
+  //   final userCollectionReference = FirebaseFirestore.instance
+  //       .collection("Counter Number")
+  //       .doc("Total Data");
+  //   userCollectionReference.update({
+  //     "Total Data": totalData,
+  //   });
+  // }
 
   void clearall() {
     // 데이터 전부 삭제
