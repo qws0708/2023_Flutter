@@ -64,11 +64,17 @@ class _FlowerState extends State<Flower> {
                       //print(total);
                       //print(length);
                       print(medium);
-                      if (medium > 5 && medium < 12) {
+                      if (medium > 0 && medium < 4) {
                         flowerName = "Bad";
                       }
-                      if (medium >= 12 && medium < 20) {
+                      if (medium >= 4 && medium < 8) {
+                        flowerName = "Soso";
+                      }
+                      if (medium >= 8 && medium < 12) {
                         flowerName = "Happy";
+                      }
+                      if (medium >= 12 && medium < 16) {
+                        flowerName = "Exellent";
                       }
                     }
 

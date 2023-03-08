@@ -163,6 +163,7 @@ class _MyAppState extends State<MyApp> {
                     totalData = submitvalue;
                     _incrementCounter();
                     addData();
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(100, 50),
